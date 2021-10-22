@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{828A370B-07F7-4004-9B90-A4EF89BA3DAD}</ProjectGuid>
+    <ProjectGuid>{F95EC595-24D1-461E-99D9-E111D135B23C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>VaR</RootNamespace>
     <AssemblyName>VaR</AssemblyName>
