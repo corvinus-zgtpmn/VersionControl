@@ -20,10 +20,7 @@ namespace Webszolgaltatas
         public Form1()
         {
             InitializeComponent();
-            GetExchangeRates();
-            dataGridView1.DataSource = Rates;
-            adatfeldolgozas();
-            Chartolas();
+            RefreshData();
         }
         void GetExchangeRates()
         {
@@ -31,22 +28,19 @@ namespace Webszolgaltatas
 
             var request = new GetExchangeRatesRequestBody()
             {
-                currencyNames = "EUR",
-                startDate = "2020-01-01",
-                endDate = "2020-06-30"
+                currencyNames = comboBox1.SelectedItem.ToString(),
+                startDate = dateTimePicker1.Value.ToString(),
+                endDate = dateTimePicker2.Value.ToString()
             };
             var response = mnbService.GetExchangeRates(request);
             var result = response.GetExchangeRatesResult;
-        }
-        void adatfeldolgozas()
-        {
             var xml = new XmlDocument();
             xml.LoadXml(result);
             foreach (XmlElement element in xml.DocumentElement)
             {
                 var rate = new RateData();
                 Rates.Add(rate);
-             
+
                 rate.Date = DateTime.Parse(element.GetAttribute("date"));
 
                 var childElement = (XmlElement)element.ChildNodes[0];
@@ -75,6 +69,28 @@ namespace Webszolgaltatas
             chartArea.AxisX.MajorGrid.Enabled = false;
             chartArea.AxisY.MajorGrid.Enabled = false;
             chartArea.AxisY.IsStartedFromZero = false;
+        }
+        void RefreshData()
+        {
+            Rates.Clear();
+            GetExchangeRates();
+            dataGridView1.DataSource = Rates;
+            Chartolas();
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshData();
         }
     }
 }
