@@ -17,6 +17,7 @@ namespace Webszolgaltatas
     public partial class Form1 : Form
     {
         BindingList<RateData> Rates = new BindingList<RateData>();
+        BindingList<string> Currencies = new BindingList<string>();
         public Form1()
         {
             InitializeComponent();
@@ -76,6 +77,7 @@ namespace Webszolgaltatas
             GetExchangeRates();
             dataGridView1.DataSource = Rates;
             Chartolas();
+            comboBox1.DataSource = Currencies;
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
