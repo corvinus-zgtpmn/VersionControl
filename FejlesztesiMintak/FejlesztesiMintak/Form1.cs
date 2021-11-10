@@ -90,5 +90,14 @@ namespace FejlesztesiMintak
             if (colorPicker.ShowDialog() != DialogResult.OK) return;
             button.BackColor = colorPicker.Color;
         }
+
+        private void btnPresent_Click(object sender, EventArgs e)
+        {
+            Factory = new PresentFactory
+            {
+                // PresentColorBox.Color = button1.BackColor;
+            };
+
+        }
     }
 }
