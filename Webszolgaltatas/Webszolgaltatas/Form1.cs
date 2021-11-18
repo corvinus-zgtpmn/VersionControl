@@ -21,6 +21,7 @@ namespace Webszolgaltatas
         public Form1()
         {
             InitializeComponent();
+            GetCurrencies();
             RefreshData();
         }
         void GetExchangeRates()
@@ -45,6 +46,8 @@ namespace Webszolgaltatas
                 rate.Date = DateTime.Parse(element.GetAttribute("date"));
 
                 var childElement = (XmlElement)element.ChildNodes[0];
+                if (childElement == null)
+                    continue;
                 rate.Currency = childElement.GetAttribute("curr");
 
                 var unit = decimal.Parse(childElement.GetAttribute("unit"));
@@ -93,6 +96,26 @@ namespace Webszolgaltatas
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshData();
+        }
+        public void GetCurrencies()
+        {
+            var mnbService = new MNBArfolyamServiceSoapClient();
+
+            var request = new GetCurrenciesRequestBody();
+
+            var response = mnbService.GetCurrencies(request);
+
+            var result = response.GetCurrenciesResult;
+
+
+            var xml = new XmlDocument();
+            xml.LoadXml(result);
+
+            foreach (XmlElement element in xml.DocumentElement.ChildNodes[0])
+            {
+                string newItem = element.InnerText;
+                Currencies.Add(newItem);
+            }
         }
     }
 }

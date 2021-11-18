@@ -14,14 +14,15 @@ namespace FejlesztesiMintak.Entities
         public SolidBrush PresentColorRibbon { get; private set; }
         public Present(Color ribbon, Color box)
         {
-            PresentColorBox = new SolidBrush( box);
+            PresentColorBox = new SolidBrush(box);
             PresentColorRibbon = new SolidBrush(ribbon);
+        }
             protected override void DrawImage(Graphics g)
         {
             g.FillRectangle(PresentColorBox, 0, 0, Width, Height);
-            g.FillRectangle(PresentColorRibbon, 10, 0, Width, Height);
-            g.FillRectangle(PresentColorRibbon, 0, 10, Width, Height);
+            g.FillRectangle(PresentColorRibbon, 10, 0, Width/5, Height);
+            g.FillRectangle(PresentColorRibbon, 0, 10, Width, Height/5);
         }
     }
-    }
+    
 }

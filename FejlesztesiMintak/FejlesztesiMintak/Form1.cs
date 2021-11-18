@@ -95,7 +95,7 @@ namespace FejlesztesiMintak
         {
             Factory = new PresentFactory
             {
-                // PresentColorBox.Color = button1.BackColor;
+                //PresentColorBox.Color = button1.BackColor; (pedig így kell csak külön buttonokkal esetleg)
             };
 
         }
