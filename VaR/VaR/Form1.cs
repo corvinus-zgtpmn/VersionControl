@@ -17,13 +17,14 @@ namespace VaR
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
+        List<decimal> Nyereségek = new List<decimal>();
         public Form1()
         {
             InitializeComponent();
             Ticks = context.Ticks.ToList();
             dataGridView1.DataSource = Ticks;
             CreatePortfolio();
-            List<decimal> Nyereségek = new List<decimal>();
+           
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -71,12 +72,9 @@ namespace VaR
             if (sfd.ShowDialog() != DialogResult.OK) return;
             using (var sw=new StreamWriter(sfd.FileName,false,Encoding.UTF8))
             {
-                for (int i = 0; i <nyereségekRendezve.Count(); i++)
+                for (int i = 0; i <Nyereségek.Count(); i++)
                 {
-                    sw.WriteLine(string.Format(
-                        "{0}", "{1}",
-                        i
-                        ));
+                    sw.WriteLine((i + 1).ToString() + "\t" + Nyereségek[i]);
                 }
 
             }       
